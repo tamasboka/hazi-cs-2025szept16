@@ -1,28 +1,79 @@
-﻿namespace hazi0916
+﻿using System;
+
+namespace hazi0916
 {
     internal class Program
     {
+
+        // param 1: string | bekeres uzenete
+        // returns int | beirt szam
+        static int ReadInt(string message)
+        {
+            Console.Write(message);
+            int num;
+            // checks input | ha nem lehet atvaltani intre => error message
+            while (!int.TryParse(Console.ReadLine(), out num))
+            {
+                Console.WriteLine("Hibás bemenet! Ez nem szám");
+                Console.Write(message);
+            }
+            return num;
+        }
+        
+        // param: string | bekeres uzenete
+        // retuens string | beirt szoveg
+        static string ReadStr(string message)
+        {
+            Console.Write(message);
+            return Console.ReadLine();
+        }
+
+        //param: string | bekeres uzenete
+        //returns double | beirt nem egesz szam
+        static double ReadDouble(string message)
+        {
+            Console.Write(message);
+            double num;
+            // checks input | ha nem valthato at doublere => error message
+            while (!double.TryParse(Console.ReadLine(), out num))
+            {
+                Console.WriteLine("Hibás bemenet! Ez nem szám");
+                Console.Write(message);
+            }
+            return num;
+        }
+
+        // param: string | uzenet
+        // addig ker be szamot, amig nem lesz pozitiv
+        // returns int
+        static int ReadPositiveInt(string message)
+        {
+            int num;
+            do
+            {
+                num = ReadInt(message);
+            } while (num < 1);
+            return num;
+        }
+
         static void F1()
         {
             Console.WriteLine("Hello, World!");
         }
         static void F2()
         {
-            Console.Write("Név: ");
-            string name = Console.ReadLine();
+            string name = ReadStr("Név: ");
             Console.WriteLine($"Szia {name}");
         }
         static void F3()
         {
-            Console.Write("Szám: ");
-            Console.WriteLine(int.Parse(Console.ReadLine())*2);
+            int f3num = ReadInt("Szám: ");
+            Console.WriteLine(f3num * 2);
         }
         static void F4()
         {
-            Console.Write("1. szám: ");
-            int szam1 = int.Parse(Console.ReadLine());
-            Console.Write("2. szám: ");
-            int szam2 = int.Parse(Console.ReadLine());
+            int szam1 = ReadInt("1. szám: ");
+            int szam2 = ReadInt("2. szám: ");
             Console.WriteLine(szam1 + szam2);
             Console.WriteLine(szam1 - szam2);
             Console.WriteLine(szam1 * szam2);
@@ -30,10 +81,8 @@
         }
         static void F5()
         {
-            Console.Write("1. szám: ");
-            int szam1 = int.Parse(Console.ReadLine());
-            Console.Write("2. szám: ");
-            int szam2 = int.Parse(Console.ReadLine());
+            int szam1 = ReadInt("1. szám: ");
+            int szam2 = ReadInt("2. szám: ");
             if (szam1 > szam2)
             {
                 Console.WriteLine(szam1);
@@ -47,12 +96,9 @@
         }
         static void F6()
         {
-            Console.Write("1. szám: ");
-            int szam1 = int.Parse(Console.ReadLine());
-            Console.Write("2. szám: ");
-            int szam2 = int.Parse(Console.ReadLine());
-            Console.Write("3. szám: ");
-            int szam3 = int.Parse(Console.ReadLine());
+            int szam1 = ReadInt("1. szám: ");
+            int szam2 = ReadInt("2. szám: ");
+            int szam3 = ReadInt("3. szám: ");
             if (szam1 < szam2 && szam1 < szam3)
             {
                 Console.WriteLine($"{szam1} a legkisebb");
@@ -66,12 +112,9 @@
         }
         static void F7()
         {
-            Console.Write("a oldal: ");
-            int a_oldal = int.Parse(Console.ReadLine());
-            Console.Write("b oldal: ");
-            int b_oldal = int.Parse(Console.ReadLine());
-            Console.Write("c oldal: ");
-            int c_oldal = int.Parse(Console.ReadLine());
+            int a_oldal = ReadInt("a oldal: ");
+            int b_oldal = ReadInt("b oldal: ");
+            int c_oldal = ReadInt("c oldal: ");
             if (a_oldal + b_oldal > c_oldal || b_oldal + c_oldal > a_oldal || a_oldal + c_oldal > b_oldal)
             {
                 Console.WriteLine("Szerkeszthető");
@@ -82,21 +125,16 @@
         }
         static void F8()
         {
-            Console.Write("1. szám: ");
-            double szam1 = double.Parse(Console.ReadLine());
-            Console.Write("2. szám: ");
-            double szam2 = double.Parse(Console.ReadLine());
+            double szam1 = ReadDouble("1. szám: ");
+            double szam2 = ReadDouble("2. szám: ");
             Console.WriteLine($"Számtani közép: {(szam1 + szam2) / 2}");
             Console.WriteLine($"Mértani közép: {Math.Sqrt(szam2 * szam1)}");
         }
         static void F9()
         {
-            Console.Write("a: ");
-            double a = double.Parse(Console.ReadLine());
-            Console.Write("b: ");
-            double b = double.Parse(Console.ReadLine());
-            Console.Write("c: ");
-            double c = double.Parse(Console.ReadLine());
+            double a = ReadDouble("a: ");
+            double b = ReadDouble("b: ");
+            double c = ReadDouble("c: ");
             double d = b * b - 4 * a * c;
             if (d > 0 || d == 0)
             {
@@ -108,12 +146,9 @@
         }
         static void F10()
         {
-            Console.Write("a: ");
-            double a = double.Parse(Console.ReadLine());
-            Console.Write("b: ");
-            double b = double.Parse(Console.ReadLine());
-            Console.Write("c: ");
-            double c = double.Parse(Console.ReadLine());
+            double a = ReadDouble("a: ");
+            double b = ReadDouble("b: ");
+            double c = ReadDouble("c: ");
             double d = b * b - 4 * a * c;
             if (d < 0)
             {
@@ -133,43 +168,117 @@
         }
         static void F11()
         {
-            Console.Write("1. befogó: ");
-            double befogo1 = double.Parse(Console.ReadLine());
-            Console.Write("2. befogó: ");
-            double befogo2 = double.Parse(Console.ReadLine());
+            double befogo1 = ReadDouble("1. befogó");
+            double befogo2 = ReadDouble("2. befogó");
             double atfogo = Math.Round(Math.Sqrt(befogo1 * befogo1 + befogo2 * befogo2), 2);
             Console.WriteLine($"Átfogó: {atfogo}");
         }
         static void F12()
         {
-            Console.Write("a él: ");
-            double a = double.Parse(Console.ReadLine());
-            Console.Write("b él: ");
-            double b = double.Parse(Console.ReadLine());
-            Console.Write("c él: ");
-            double c = double.Parse(Console.ReadLine());
+            double a = ReadDouble("'a' él: ");
+            double b = ReadDouble("'b' él: ");
+            double c = ReadDouble("'c' él: ");
             Console.WriteLine($"V: {a * b * c}");
             Console.WriteLine($"A: {2 * (a * b + b * c + a * c)}");
         }
         static void F13()
         {
-            Console.Write("Kör átmérője: ");
-            double r = double.Parse(Console.ReadLine()) / 2;
+            double r = ReadDouble("Kör átmérője: ") / 2;
             Console.WriteLine($"Kerület: {2 * r * Math.PI}");
             Console.WriteLine($"Terület: {r * r * Math.PI}");
         }
         static void F14()
         {
-            Console.Write("Körcikk sugara: ");
-            double r = double.Parse(Console.ReadLine());
-            Console.Write("Középponti szög: ");
-            double a = double.Parse(Console.ReadLine());
+            double r = ReadDouble("Körcikk sugara: ");
+            double a = ReadDouble("Középponti szög: ");
             Console.WriteLine($"Körcikk területe: {r * r * Math.PI * a / 360}");
             Console.WriteLine($"Körcikk ív hossza: {2 * r * Math.PI * a / 360}");
         }
-        static void Main(string[] args)
+        static void F15()
+        {
+            int num = ReadPositiveInt("Pozitív szám: ");
+            for (int i = 0; i != num+1; i++)
+            {
+                Console.Write(i + " ");
+            }
+        }
+        static void F16()
+        {
+            int num = ReadPositiveInt("Pozitív szám: ");
+            for (int i = 0; i != num+1; i++)
+            {
+                Console.WriteLine(i);
+            }
+        }
+        static void F17()
+        {
+            int num = ReadPositiveInt("Pozitív szám: ");
+            for (int i = 1; i < num+1; i++)
+            {
+                if (num % i == 0) Console.WriteLine(i);
+            }
+        }
+        static void F18()
+        {
+            int sum = 0;
+            int num = ReadPositiveInt("Pozitív szám: ");
+            for (int i = 1; i < num + 1; i++)
+            {
+                if (num % i == 0) sum += i;
+            }
+            Console.WriteLine(sum);
+        }
+
+        static void F19()
+        {
+            int num = ReadPositiveInt("Pozitív szám: ");
+            int sum = 0;
+            for (int i = 1; i < num + 1; i++)
+            {
+                if (num % i == 0) sum += i;
+            }
+            if (sum == num*2)
+            {
+                Console.WriteLine("Tökéletes szám");
+            } else
+            {
+                Console.WriteLine("Nem tökéletes szám");
+            }
+        }
+        static void F20()
+        {
+            int num = ReadInt("Hatványalap: ");
+            int power = ReadPositiveInt("Kitevő: ");
+            int result = num;
+            for (int i = 1; i < power; i++)
+            {
+                result *= num;
+            }
+            Console.WriteLine(result);
+        }
+
+        static void F21()
+        {
+            ReadPositiveInt("Pozitív szám: ");
+        }
+        static void F22()
+        {
+            int sum = 0;
+            int num = ReadInt("Szám: ");
+            while (num < 10)
+            {
+                if (num < 10) sum += num;
+                num = ReadInt("Szám: ");
+            }
+            Console.WriteLine(sum);
+        }
+        static void F23()
         {
 
+        }
+        static void Main(string[] args)
+        {
+            F22();
         }
     }
 }
